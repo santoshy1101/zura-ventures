@@ -8,7 +8,8 @@ export default {
     extend: {
       colors:{
         'purple': '#7e22ce',
-        'gray':'#838383'
+        'gray':'#838383',
+        'black-rgba': 'rgba(0, 0, 0, 0.8)',
       }
     },
   },

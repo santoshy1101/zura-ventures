@@ -1,11 +1,19 @@
 import React from 'react'
 import LandingLogo from '../assets/landing_logo.svg'
 import { FaPlusCircle } from 'react-icons/fa'
-import { MdHome } from 'react-icons/md'
+import { useDispatch } from 'react-redux';
+import { openModal } from '../redux/modalSlice';
+
 
 const LandingPage = () => {
+    const dispatch = useDispatch();
+
+    const handleOpenModal = () => {
+      dispatch(openModal());
+    };
   return (
-    <div className="flex flex-col  items-center ">
+    <div className="flex flex-col items-center ">
+
       <div className="w-[70%] flex flex-col  items-center gap-2 mt-12">
         <h1 className="text-4xl font-bold text-purple">Create a New Project</h1>
         <div className="w-[35%]">
@@ -22,7 +30,7 @@ const LandingPage = () => {
           </p>
         </div>
 
-        <div className="bg-[#211935] text-[#f4f4f4] flex gap-x-2 px-5 py-3 rounded-lg cursor-pointer hover:bg-[#211935af]">
+        <div onClick={ handleOpenModal} className="bg-[#211935] text-[#f4f4f4] flex gap-x-2 px-5 py-3 rounded-lg cursor-pointer hover:bg-[#211935af]">
           <span>
             <FaPlusCircle size={30} />
           </span>

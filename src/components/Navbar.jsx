@@ -2,7 +2,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between px-5 py-2">
+    <div className="flex justify-between px-5 py-2 ">
       {/* left logo */}
       <div className="flex items-center cursor-pointer gap-x-2">
         <svg
