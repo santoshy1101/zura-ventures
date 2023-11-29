@@ -2,18 +2,19 @@ import BackToHome from './components/BackToHome'
 import LandingPage from './components/LandingPage'
 import Navbar from './components/Navbar'
 import CreateProject from './components/CreateProject'
-import { useSelector, useDispatch } from 'react-redux'
-import { openModal, closeModal, selectIsModalOpen } from './redux/modalSlice'
+import { useSelector } from 'react-redux'
+import { selectProjectNames } from './redux/projectSlice'
+import ShowProjects from './components/ShowProjects'
 
 export default function App() {
-  const isModalOpen = useSelector(selectIsModalOpen)
+  const projectNames = useSelector(selectProjectNames)
 
   return (
     <div className={` min-h-[100vh] `}>
       <Navbar />
       <BackToHome />
       <CreateProject />
-      <LandingPage />
+      {projectNames.length > 0 ? <ShowProjects /> : <LandingPage />}
     </div>
   )
 }

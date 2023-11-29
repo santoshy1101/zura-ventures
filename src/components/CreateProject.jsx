@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal, selectIsModalOpen } from '../redux/modalSlice'
+import { addProjectName } from '../redux/projectSlice'
 
 const CreateProject = () => {
+  const [projectName, setProjectName] = useState('')
+  const [valid, setValid] = useState(false)
   const isModalOpen = useSelector(selectIsModalOpen)
   const dispatch = useDispatch()
+
   const handleCloseModal = () => {
     dispatch(closeModal())
   }
+
+  const handleAddProjectName = (event) => {
+    event.preventDefault()
+    if (projectName) {
+      dispatch(addProjectName(projectName))
+      setProjectName('')
+      dispatch(closeModal())
+    } else {
+      setValid(true)
+    }
+  }
+
   return (
     <div
       className={`fixed  top-1/2 left-1/2 transform ${
@@ -16,8 +32,11 @@ const CreateProject = () => {
     >
       <div className="w-[550px] bg-white  ">
         <h2 className="text-xl font-bold">Create Project</h2>
-        <form className="flex flex-col mt-4 gap-y-2">
-          <label htmlFor="">Enter Project Name:</label>
+        <form
+          className="flex flex-col mt-4 gap-y-2"
+          onSubmit={handleAddProjectName}
+        >
+          <label htmlFor="project">Enter Project Name:</label>
 
           <input
             name="project"
@@ -25,25 +44,32 @@ const CreateProject = () => {
             id="project"
             placeholder="Type here "
             type="text"
+            value={projectName}
+            onChange={(e) => {
+              setProjectName(e.target.value) || setValid(false)
+            }}
           />
-          <p className="text-xs font-medium text-red-500">
-            Project Name Can't be empty
-          </p>
+          {valid && (
+            <p className="text-xs font-medium text-red-500">
+              Project Name Can't be empty
+            </p>
+          )}
+
+          <div className="flex justify-end mt-6 font-semibold gap-x-4">
+            <button
+              onClick={handleCloseModal}
+              className="text-red-500 duration-100 border-b-2 cursor-pointer border-b-white hover:border-b-red-500"
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-purple text-white hover:bg-[#7e22cedd] duration-150 cursor-pointer px-4 py-1 rounded-md"
+              type="submit"
+            >
+              Create
+            </button>
+          </div>
         </form>
-        <div className="flex justify-end mt-6 font-semibold gap-x-4">
-          <button
-            onClick={handleCloseModal}
-            className="text-red-500 duration-100 border-b-2 cursor-pointer border-b-white hover:border-b-red-500"
-          >
-            Cancel
-          </button>
-          <button
-            className="bg-purple text-white hover:bg-[#7e22cedd] duration-150 cursor-pointer px-4 py-1 rounded-md"
-            type="submit"
-          >
-            Create
-          </button>
-        </div>
       </div>
     </div>
   )
