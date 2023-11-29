@@ -10,15 +10,17 @@ const CreateProject = () => {
   const dispatch = useDispatch()
 
   const handleCloseModal = () => {
+    setValid(false)
     dispatch(closeModal())
   }
-
+  console.log(valid)
   const handleAddProjectName = (event) => {
     event.preventDefault()
     if (projectName) {
       dispatch(addProjectName(projectName))
       setProjectName('')
       dispatch(closeModal())
+      setValid(false)
     } else {
       setValid(true)
     }
@@ -59,6 +61,7 @@ const CreateProject = () => {
             <button
               onClick={handleCloseModal}
               className="text-red-500 duration-100 border-b-2 cursor-pointer border-b-white hover:border-b-red-500"
+              type="reset"
             >
               Cancel
             </button>
