@@ -13,7 +13,6 @@ const CreateProject = () => {
     setValid(false)
     dispatch(closeModal())
   }
-  console.log(valid)
   const handleAddProjectName = (event) => {
     event.preventDefault()
     if (projectName) {
