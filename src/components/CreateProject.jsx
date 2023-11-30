@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal, selectIsModalOpen } from '../redux/modalSlice'
-import { addProjectName } from '../redux/projectSlice'
+import { addUpload} from '../redux/uploadSlice'
 
 const CreateProject = () => {
   const [projectName, setProjectName] = useState('')
@@ -11,6 +11,7 @@ const CreateProject = () => {
 
   const handleCloseModal = () => {
     setValid(false)
+    setProjectName('')
     dispatch(closeModal())
   }
   const handleAddProjectName = (event) => {
