@@ -9,7 +9,7 @@ import {
   openUpload,
 } from '../redux/modalSlice'
 import SelectFile from './SelectFile'
-import UploadList from './UploadList'
+import UploadList from './UploadLists'
 import TryOutAd from './TryOutAd'
 import { selectProjectNames } from '../redux/projectSlice'
 import { selectProjectId } from '../redux/projectIdSlice'
