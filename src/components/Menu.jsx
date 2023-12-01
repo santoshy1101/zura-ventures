@@ -7,17 +7,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import {
   openUpload,
-  selectIsModalOpen,
-  selectIsUploadOpen,
 } from '../redux/modalSlice'
 import SelectFile from './SelectFile'
-import UploadList from './UploadLIst'
-import { list } from 'postcss'
+import UploadList from './UploadList'
 import TryOutAd from './TryOutAd'
-import MenuHeader from './MenuHeader'
 import { selectProjectNames } from '../redux/projectSlice'
 import { selectProjectId } from '../redux/projectIdSlice'
-import axios from 'axios'
 import { selectUploadedItems, getUploadedLinksById } from '../redux/uploadSlice'
 
 const List = [
