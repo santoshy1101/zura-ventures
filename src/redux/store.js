@@ -5,6 +5,8 @@ import modalReducer from './modalSlice'
 import projectReducer from './projectSlice'
 import uploadReducer from './uploadSlice';
 import editModeReducer from './editModeSlice';
+import projectIdReducer from './projectIdSlice';
+import linkIdReducer from './linkIdSlice';
 
 
 const store = configureStore({
@@ -13,6 +15,8 @@ const store = configureStore({
     project: projectReducer,
     uploads: uploadReducer,
     editMode: editModeReducer,
+    projectId:projectIdReducer,
+    linkId:linkIdReducer
 
   },
 })

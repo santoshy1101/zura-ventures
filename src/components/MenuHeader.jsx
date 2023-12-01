@@ -4,7 +4,7 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import Lang from '../assets/lang.svg'
 import Home from '../assets/home.svg'
 
-const MenuHeader = () => {
+const MenuHeader = ({ page }) => {
   return (
     <div className="flex items-center justify-between px-2 font-semibold ">
       <div className="flex items-center gap-x-2 ">
@@ -14,7 +14,7 @@ const MenuHeader = () => {
         <p className="text-slate-400">/</p>
         <p className="text-slate-400">Sample Project</p>
         <p className="text-slate-400">/</p>
-        <p className="text-purple">Upload</p>
+        <p className="capitalize text-purple">{page.replace('/', '')}</p>
       </div>
 
       <div className="flex items-center gap-x-2">

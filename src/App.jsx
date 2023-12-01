@@ -12,29 +12,18 @@ import EditTranscript from './components/EditTranscript'
 import MenuHeader from './components/MenuHeader'
 import Configuration from './components/Configuration'
 import Account from './components/Account'
+import AllRouter from './AllRoutes/AllRouter'
+import { useLocation } from 'react-router-dom'
 
 export default function App() {
-  const projectNames = useSelector(selectProjectNames)
+  // const projectNames = useSelector(selectProjectNames)
+
+
 
   return (
     <div className={` min-h-[100vh] `}>
-      {/* <Navbar />
-      <BackToHome />
-      <CreateProject />
-      {projectNames.length > 0 ? <ShowProjects /> : <LandingPage />} */}
-     
-     <div className='flex '>
-     <Upload/>
-     <LeftSideBar/>
-    {/*  <Menu/> */}
-    <div className='w-[100%] pl-[320px] flex flex-col px-10 py-2  gap-y-3'>
-    <MenuHeader/>
-  {/*   <EditTranscript/> */}
- {/*  <Configuration/> */}
- <Account/>
-    </div>
-  
-     </div>
+<AllRouter/>
+
     </div>
   )
 }

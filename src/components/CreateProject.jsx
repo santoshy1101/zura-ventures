@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal, selectIsModalOpen } from '../redux/modalSlice'
-import { addUpload} from '../redux/uploadSlice'
+import { addUpload } from '../redux/uploadSlice'
+import { addProjectName } from '../redux/projectSlice'
+import {
+  postProject,
+  getProjects,
+  selectProjectNames,
+} from '../redux/projectSlice'
 
 const CreateProject = () => {
   const [projectName, setProjectName] = useState('')
@@ -17,10 +23,8 @@ const CreateProject = () => {
   const handleAddProjectName = (event) => {
     event.preventDefault()
     if (projectName) {
-      dispatch(addProjectName(projectName))
-      setProjectName('')
-      dispatch(closeModal())
-      setValid(false)
+      dispatch(postProject(projectName))
+      handleCloseModal()
     } else {
       setValid(true)
     }

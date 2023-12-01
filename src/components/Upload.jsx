@@ -11,8 +11,8 @@ import {
   selectUploadedItems,
 } from '../redux/uploadSlice'
 import { IoClose } from 'react-icons/io5'
-
 import Youtube from '../assets/youtube.svg'
+import { postLink } from '../redux/uploadSlice'
 
 const initState = {
   name: '',
@@ -25,8 +25,6 @@ const CreateProject = () => {
   const dispatch = useDispatch()
   const uploadedItems = useSelector(selectUploadedItems)
 
-  console.log(uploadedItems)
-
   const handleCloseUpload = () => {
     setValid(false)
     setUploadFrom(initState)
@@ -35,10 +33,10 @@ const CreateProject = () => {
 
   const handleUploadForm = (event) => {
     event.preventDefault()
-    const timestamp = new Date().toLocaleString() // Current date and time
+    const time = new Date().toLocaleString() // Current date and time
 
     if (uploadForm.name && uploadForm.link) {
-      dispatch(addUpload({ ...uploadForm, timestamp }))
+      dispatch(postLink({ ...uploadForm, time }))
       handleCloseUpload()
     } else {
       setValid(true)

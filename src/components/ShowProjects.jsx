@@ -29,7 +29,7 @@ const ShowProjects = () => {
 
       <div className="grid grid-cols-3 gap-4 mt-7">
         {projectNames.map((item, ind) => {
-          return <SingleProject key={ind} name={item} />
+          return <SingleProject key={ind} name={item.name} id={item._id} />
         })}
       </div>
     </div>

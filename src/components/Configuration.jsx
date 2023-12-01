@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import { LuUpload } from 'react-icons/lu'
+import ImageUrl from './ImageUrl'
 
 const TabContent = ({ id, activeTab, children }) => (
   <div
@@ -297,25 +298,7 @@ const Configuration = () => {
                 </label>
                 <br />
 
-                <div className="flex cursor-pointer gap-x-4">
-                  <img
-                    className="w-[50px] h-[50px]  rounded-full"
-                    src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Maruti/Swift/10406/1697698080681/front-left-side-47.jpg?impolicy=resize&imwidth=480"
-                    alt=""
-                  />
-
-                  <div className="flex flex-col">
-                    <div className="flex flex items-center justify-around border-2 w-[150px] text-white bg-purple px-2 py-2 rounded-md">
-                      Upload Image{' '}
-                      <span>
-                        <LuUpload size={20} />
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300">
-                      Recommended Size: 48x48px
-                    </p>
-                  </div>
-                </div>
+                <ImageUrl />
               </div>
             </div>
           </TabContent>

@@ -1,9 +1,32 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectUploadedItems } from '../redux/uploadSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  selectUploadedItems,
+  deleteSingleLinkById,
+  getSingleLinkById,
+} from '../redux/uploadSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import { setLinkId, selectLinkId } from '../redux/linkIdSlice'
+import { selectProjectId } from '../redux/projectIdSlice'
 
-const UploadList = () => {
-  const uploadedItems = useSelector(selectUploadedItems)
+const UploadList = ({ linkList }) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const linkId = useSelector(selectLinkId)
+  const projectId = useSelector(selectProjectId)
+
+  const handleSetLinkId = (newLinkId) => {
+    dispatch(getSingleLinkById(projectId, newLinkId))
+    dispatch(setLinkId(newLinkId))
+    navigate('/upload/transcript')
+  }
+
+  const handleDeleteLink = () => {
+    // Dispatch the action to delete a single link by ID
+    dispatch(deleteSingleLinkById(projectId, linkId))
+    console.log('del', projectId, linkId)
+  }
+
   return (
     <div className="relative overflow-x-auto border shadow-md sm:rounded-lg border-slate-400">
       <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
@@ -24,7 +47,7 @@ const UploadList = () => {
           </tr>
         </thead>
         <tbody>
-          {uploadedItems.map((item, ind) => {
+          {linkList.links.map((item, ind) => {
             return (
               <tr
                 key={ind}
@@ -34,24 +57,25 @@ const UploadList = () => {
                   scope="row"
                   className="px-6 py-4 font-medium text-black text-gray-900 capitalize blackspace-nowrap"
                 >
-                  {item.name}
+                  {item?.name}
                 </th>
 
-                <td className="px-6 py-4">{item.timestamp}</td>
+                <td className="px-6 py-4">{item?.time}</td>
                 <td className="px-6 py-4">Done</td>
                 <td className="px-6 py-4 ">
-                  <a
-                    href="#"
-                    className="px-4 py-2 font-medium border border-slate-400 hover:underline"
+                  <span
+                    className="px-4 py-2 font-medium border cursor-pointer border-slate-400 hover:underline"
+                    onClick={() => handleSetLinkId(item._id)}
                   >
                     Edit
-                  </a>
-                  <a
+                  </span>
+                  <span
                     href="#"
-                    className="px-4 py-2 font-medium text-red-500 border rounded-r border-slate-400 hover:underline"
+                    className="px-4 py-2 font-medium text-red-500 border rounded-r cursor-pointer border-slate-400 hover:underline"
+                    onClick={handleDeleteLink}
                   >
                     Delete
-                  </a>
+                  </span>
                 </td>
               </tr>
             )

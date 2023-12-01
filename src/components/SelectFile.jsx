@@ -1,7 +1,6 @@
 import React from 'react'
 import CloudUpload from '../assets/cloud_upload.svg'
 
-
 const SelectFile = () => {
   return (
     <div>

@@ -1,7 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdOutlineModeEdit } from 'react-icons/md'
 import { IoIosSearch } from 'react-icons/io'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectSingleLink,
+  getSingleLinkById,
+  updateSingleLinkById,
+} from '../redux/uploadSlice'
+import { selectLinkId } from '../redux/linkIdSlice'
+import { selectProjectId } from '../redux/projectIdSlice'
+
 import {
   enterEditMode,
   exitEditMode,
@@ -11,11 +19,13 @@ import {
 
 const EditTranscript = () => {
   const isEditMode = useSelector(selectEditMode)
-  const editedItemId = useSelector(selectEditedItemId)
-  const [textAreaValue, setTextAreaValue] = useState("");
+  const linkId = useSelector(selectLinkId)
+  const projectId = useSelector(selectProjectId)
+  const singleLink = useSelector(selectSingleLink)
+
+  const [textAreaValue, setTextAreaValue] = useState(singleLink?.link)
 
   const dispatch = useDispatch()
-
   const handleEnterEditMode = (itemId) => {
     dispatch(enterEditMode(itemId))
   }
@@ -24,24 +34,36 @@ const EditTranscript = () => {
     dispatch(exitEditMode())
   }
   const handleSaveExitEditMode = () => {
+    dispatch(updateSingleLinkById(projectId, linkId, { link: textAreaValue }))
     dispatch(exitEditMode())
   }
+
+  useEffect(() => {
+    // Dispatch the action to get a single link by ID
+
+    dispatch(getSingleLinkById(projectId, linkId))
+  }, [linkId])
 
   return (
     <div className="">
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-3xl font-bold text-purple">Edit Transcript</h1>
-       { isEditMode && <div className="flex gap-x-3 ">
-          <button
-            onClick={handleExitEditMode}
-            className="py-1 ml-auto text-red-500 bg-white border rounded-md hover:bg-red-100 px-7"
-          >
-            Discard
-          </button>
-          <button className="bg-[#211935] text-white px-7 py-1 rounded-md hover:bg-[#211935e6] ">
-            Save & Edit
-          </button>
-        </div>}
+        {isEditMode && (
+          <div className="flex gap-x-3 ">
+            <button
+              onClick={handleExitEditMode}
+              className="py-1 ml-auto text-red-500 bg-white border rounded-md hover:bg-red-100 px-7"
+            >
+              Discard
+            </button>
+            <button
+              onClick={handleSaveExitEditMode}
+              className="bg-[#211935] text-white px-7 py-1 rounded-md hover:bg-[#211935e6] "
+            >
+              Save & Edit
+            </button>
+          </div>
+        )}
       </div>
 
       <div>
@@ -75,9 +97,9 @@ const EditTranscript = () => {
               rows="14"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-purple outline-purple border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Write your thoughts here..."
-              onChange={(e)=>setTextAreaValue(e.target.value)}
+              onChange={(e) => setTextAreaValue(e.target.value)}
               value={textAreaValue}
-
+              disabled={!isEditMode}
             ></textarea>
           </div>
         </div>

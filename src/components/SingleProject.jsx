@@ -1,8 +1,20 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProjectId } from '../redux/projectIdSlice'
 
-const SingleProject = ({ name }) => {
+const SingleProject = ({ name, id }) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  function hanldeClick(id) {
+    dispatch(setProjectId(id))
+    navigate(`/upload`)
+  }
   return (
-    <div className="flex items-center px-2 py-2 border shadow-lg cursor-pointer border-slate-400 gap-x-4 rounded-xl">
+    <div
+      onClick={() => hanldeClick(id)}
+      className="flex items-center px-2 py-2 border shadow-lg cursor-pointer border-slate-400 gap-x-4 rounded-xl"
+    >
       <h1 className="p-5 text-5xl font-bold text-center text-white rounded-xl bg-purple">
         {getFirstLetters(name)}
       </h1>
